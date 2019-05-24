@@ -45,7 +45,7 @@ $bvnForm.addEventListener('submit', (e) => {
 });
 
 
-// When the user clicks on <span> (x), close the modal
+// When the user clicks on close button (x), close the modal
 $closeModal.addEventListener('click', function () {
     $modal.style.display = "none";
 })
