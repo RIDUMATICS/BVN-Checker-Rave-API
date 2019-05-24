@@ -58,7 +58,7 @@ main>section {
     width: 90%;
     background: #fff;
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(400px, 1fr) auto;
+    grid-template-rows: minmax(150px, 400px) auto;
     border-radius: 10px;
     border: none;
     overflow: hidden;
@@ -188,3 +188,11 @@ h1 {
     text-decoration: none;
     cursor: pointer;
   }  
+  
+@media only screen and (min-width: 768px) {
+    main>section {
+        grid-template-columns: 1fr 1fr;
+    }
+
+} 
+

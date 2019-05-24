@@ -7,6 +7,7 @@ const key = 'FLWSECK-e6db11d1f8a6208de8cb2f94e293450e-X';
 
 const displayResult = (data) => {
     document.querySelector('#result').innerHTML = `
+    <p>BVN: ${data.bvn} </p>
     <p>First Name: ${data.first_name} </p>
     <p>Middle Name: ${data.middle_name}</p>
     <p>Last Name: ${data.last_name}</p>
@@ -29,14 +30,16 @@ $bvnForm.addEventListener('submit', (e) => {
     const bvnValue = e.target.elements.bvnInput.value
     e.target.elements.bvnInput.value = '';
     $inputFormButton.setAttribute('disabled', 'disabled');
-    const url = `https://ravesandboxapi.flutterwave.com/v2/kyc/bvn/${bvnValue}?seckey=${key}`
+    const url = `https://ravesandboxapi.flutterwave.com/v2/kyc/bvn/${bvnValue}?seckey=${key}`;
+    $modal.style.display = "block";
     fetch(url) // Call the fetch function passing the url of the API as a parameter
         .then((resp) => {
             // Your code for handling the data you get from the API
             return resp.json();
         }).then(function (res) {
+            console.log(res);
             displayResult(res.data);
-            $modal.style.display = "block";
+            
 
         })
         .catch(function () {
