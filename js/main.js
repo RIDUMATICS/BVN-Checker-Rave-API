@@ -2,11 +2,12 @@ const $bvnInput = document.querySelector('input[name=bvnInput]')
 const $bvnForm = document.querySelector('form');
 const $inputFormButton = document.querySelector('button')
 const $modal = document.querySelector('#myModal');
-const $closeModal = document.querySelector('#myModal > .close');
+const $closeModal = document.querySelector(' .close');
 const key = 'FLWSECK-e6db11d1f8a6208de8cb2f94e293450e-X';
 
-const  displayResult = (data) => {
+const displayResult = (data) => {
     document.querySelector('#result').innerHTML = `
+    <p>BVN: ${data.bvn} </p>
     <p>First Name: ${data.first_name} </p>
     <p>Middle Name: ${data.middle_name}</p>
     <p>Last Name: ${data.last_name}</p>
@@ -28,15 +29,18 @@ $bvnForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const bvnValue = e.target.elements.bvnInput.value
     e.target.elements.bvnInput.value = '';
-    const url = `https://ravesandboxapi.flutterwave.com/v2/kyc/bvn/${bvnValue}?seckey=${key}`
+    $inputFormButton.setAttribute('disabled', 'disabled');
+    const url = `https://ravesandboxapi.flutterwave.com/v2/kyc/bvn/${bvnValue}?seckey=${key}`;
+    $modal.style.display = "block";
     fetch(url) // Call the fetch function passing the url of the API as a parameter
         .then((resp) => {
             // Your code for handling the data you get from the API
             return resp.json();
-        }).then(function(res) {
+        }).then(function (res) {
+            console.log(res);
             displayResult(res.data);
-            $modal.style.display = "block";
             
+
         })
         .catch(function () {
             // This is where you run code if the server returns any errors
@@ -44,14 +48,14 @@ $bvnForm.addEventListener('submit', (e) => {
 });
 
 
-// When the user clicks on <span> (x), close the modal
-$closeModal.onclick = function() {
+// When the user clicks on close button (x), close the modal
+$closeModal.addEventListener('click', function () {
     $modal.style.display = "none";
-  }
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
+})
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener('click', function (event) {
     if (event.target == $modal) {
-      $modal.style.display = "none";
+        $modal.style.display = "none";
     }
-  }
+})
